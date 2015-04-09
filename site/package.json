@@ -9,6 +9,7 @@
   "author": "rodrigo",
   "license": "GLP",
   "dependencies": {
-    "express": "^4.12.3"
+    "express": "^4.12.3",
+    "express-handlebar": "2.0.x"
   }
 }
