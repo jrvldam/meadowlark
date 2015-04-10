@@ -1,0 +1,14 @@
+{# {% block wheather %} {% endblock %} #}
+	<div class="wheatherWidget">
+		{% for loc in partials.wheather %}
+			en el for
+			<div class="location">
+				<h3>{{loc.name}}</h3>
+				<a href="{{ loc.forecastUrl }}">
+					<img src="{{ loc.iconUrl }}" alt="{{ loc.wheather }}">
+					{{ loc.weather }}, {{ loc.temp }}
+				</a>
+			</div>
+		{% endfor %}
+		<small>Source: <a href="http://www.wunderground.com">Weather Underground</a></small>
+	</div>

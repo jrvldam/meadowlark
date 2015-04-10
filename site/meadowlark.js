@@ -1,15 +1,26 @@
+// adela.moreno@rtve.es
 var express = require('express');
+var swig = require('swig');
 var fortune = require('./lib/fortune.js');
+var weatherData = require('./lib/weather.js');
 
 var app = express();
 
-var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+
+app.disable('x-powered-by');
 
 app.use(express.static(__dirname + '/public'));
 
-app.set('port', process.env.PORT || 3000);
+// middlewares
+app.use(function(req, res, next)
+{
+	if(!res.locals.partials) res.locals.partials = {};
+	res.locals.partials.weather = weatherData.getWeatherData();
+	next();
+});
 
 app.get('/', function(req, res)
 {
@@ -18,6 +29,10 @@ app.get('/', function(req, res)
 app.get('/about', function(req, res)
 {
 	res.render('about', {fortune: fortune.getFortune()});
+});
+app.get('/jq', function(req, res)
+{
+	res.render('jquery-test');
 });
 app.get('/headers',function(req, res)
 {
@@ -28,7 +43,7 @@ app.get('/headers',function(req, res)
 		s += name + ': ' + req.headers[name] + '\n';
 	}
 	res.send(s);
-})
+});
 app.use(function(req, res)
 {
 	res.status(404);
@@ -41,8 +56,9 @@ app.use(function(err, req, res, next)
 	res.render('500');
 });
 
+app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function()
 {
-	console.log( 'Express started on http://localhost:' +
-	app.get('port') + '; press Ctrl-C to terminate.' );
+	console.log( 'Server listening on port ' +
+	app.get('port') + '...' );
 });

@@ -9,7 +9,7 @@
   "author": "rodrigo",
   "license": "GNU-GLP",
   "dependencies": {
-    "express": "^4.12.3",
-    "express-handlebars": "*"
+    "express": "4.12.x",
+    "swig": "1.4.x"
   }
 }

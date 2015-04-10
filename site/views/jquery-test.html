@@ -1,0 +1,21 @@
+{% extends 'layouts/main.html'%}
+
+{% block head %}
+	{% parent %}
+	<!-- we want google to ingore this page -->
+	<meta name="robots" content="noindex">
+{% endblock %}
+
+{% block body %}
+	<h1>Test Page</h1>
+	<p>We are testing some jQuery stuff</p>
+	{% parent %}
+	{% block jquery %}
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				$('h1').html('jQuery works');
+			});
+		</script>
+	{% endblock %}
+{% endblock %}
