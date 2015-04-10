@@ -15,18 +15,25 @@ app.get('/', function(req, res)
 {
 	res.render('home');
 });
-
 app.get('/about', function(req, res)
 {
 	res.render('about', {fortune: fortune.getFortune()});
 });
-
+app.get('/headers',function(req, res)
+{
+	res.set('Content-Type', 'text/plain');
+	var s = '';
+	for(var name in req.headers)
+	{
+		s += name + ': ' + req.headers[name] + '\n';
+	}
+	res.send(s);
+})
 app.use(function(req, res)
 {
 	res.status(404);
 	res.render('404');
 });
-
 app.use(function(err, req, res, next)
 {
 	console.error(err.stack);

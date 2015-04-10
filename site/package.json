@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "rodrigo",
-  "license": "GLP",
+  "license": "GNU-GLP",
   "dependencies": {
     "express": "^4.12.3",
-    "express-handlebar": "2.0.x"
+    "express-handlebars": "*"
   }
 }
